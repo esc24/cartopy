@@ -44,7 +44,7 @@ class Img(collections.namedtuple('Img', _img_class_attrs)):
                 item = tuple(item)
             new_args.append(item)
         new_kwargs = {}
-        for k, item in kwargs.items():
+        for k, item in list(kwargs.items()):
             if isinstance(item, list):
                 item = tuple(item)
             new_kwargs[k] = item
@@ -165,7 +165,7 @@ class NestedImageCollection(object):
         if _ancestry is not None:
             self._ancestry = _ancestry
         else:
-            parent_wth_children = itertools.izip(collections, collections[1:])
+            parent_wth_children = zip(collections, collections[1:])
             for parent_collection, collection in parent_wth_children:
                 for parent_image in parent_collection.images:
                     for image in collection.images:

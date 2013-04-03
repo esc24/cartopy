@@ -210,6 +210,6 @@ def path_to_geos(path):
     not_zero_poly = lambda geom: ((isinstance(geom, Polygon) and
                                    not geom._is_empty and geom.area != 0) or
                                   not isinstance(geom, Polygon))
-    result = filter(not_zero_poly, geom_collection)
+    result = list(filter(not_zero_poly, geom_collection))
 
     return result

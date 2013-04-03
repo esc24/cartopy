@@ -50,7 +50,7 @@ class GoogleTiles(object):
                 img, extent, origin = self.get_image(tile)
             except IOError:
                 continue
-            print tile, extent
+            print(tile, extent)
             img = numpy.array(img)
             x = numpy.linspace(extent[0], extent[1], img.shape[1])
             y = numpy.linspace(extent[2], extent[3], img.shape[0])
@@ -171,13 +171,13 @@ class GoogleTiles(object):
         return url
 
     def get_image(self, tile):
-        import cStringIO  # *much* faster than StringIO
-        import urllib
+        import io  # *much* faster than StringIO
+        import urllib.request, urllib.parse, urllib.error
 
         url = self._image_url(tile)
 
-        fh = urllib.urlopen(url)
-        im_data = cStringIO.StringIO(fh.read())
+        fh = urllib.request.urlopen(url)
+        im_data = io.StringIO(fh.read())
         fh.close()
         img = Image.open(im_data)
 
@@ -255,7 +255,7 @@ class QuadtreeTiles(GoogleTiles):
     def quadkey_to_tms(self, quadkey, google=False):
         # algorithm ported from
         # http://msdn.microsoft.com/en-us/library/bb259689.aspx
-        assert isinstance(quadkey, basestring), 'quadkey must be a string'
+        assert isinstance(quadkey, str), 'quadkey must be a string'
 
         x = y = 0
         z = len(quadkey)

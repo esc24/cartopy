@@ -165,9 +165,9 @@ class InterProjectionTransform(mtransforms.Transform):
             paths = patch.geos_to_path(transformed_geoms)
             if not paths:
                 return mpath.Path(numpy.empty([0, 2]))
-            points, codes = zip(*[patch.path_segments(path, curves=False,
+            points, codes = list(zip(*[patch.path_segments(path, curves=False,
                                                       simplify=False)
-                                  for path in paths])
+                                  for path in paths]))
             result = mpath.Path(numpy.concatenate(points, 0),
                                 numpy.concatenate(codes))
 
@@ -317,7 +317,7 @@ class GeoAxes(matplotlib.axes.Axes):
         ns = 'N' if lat >= 0.0 else 'S'
         ew = 'E' if lon >= 0.0 else 'W'
 
-        return u'%.4g, %.4g (%f\u00b0%s, %f\u00b0%s)' % (x, y, abs(lat),
+        return '%.4g, %.4g (%f\u00b0%s, %f\u00b0%s)' % (x, y, abs(lat),
                                                          ns, abs(lon), ew)
 
     def coastlines(self, resolution='110m', color='black', **kwargs):
@@ -813,7 +813,7 @@ class GeoAxes(matplotlib.axes.Axes):
                                                        locations=locations,
                                                        offset=offset,
                                                        units=units)
-        for spine in spines.itervalues():
+        for spine in spines.values():
             spine.set_visible(False)
         return spines
 

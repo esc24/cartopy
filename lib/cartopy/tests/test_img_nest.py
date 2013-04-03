@@ -15,10 +15,10 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with cartopy.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import division
+
 
 import io
-import cPickle as pickle
+import pickle as pickle
 import os
 
 from nose.tools import assert_equal, assert_raises
@@ -109,7 +109,7 @@ def test_nest():
 
     z0_key = ('aerial z0 test', z0.images[0])
 
-    assert z0_key in nest_z0_z1._ancestry.keys()
+    assert z0_key in list(nest_z0_z1._ancestry.keys())
     assert_equal(len(nest_z0_z1._ancestry), 1)
 
     # check that it has figured out that all the z1 images are children of
@@ -130,7 +130,7 @@ def test_nest():
     nest_from_config = gen_nest()
     # check that the the images in the nest from configuration are the same as
     # those created by hand.
-    for name in nest_z0_z1._collections_by_name.keys():
+    for name in list(nest_z0_z1._collections_by_name.keys()):
         for img in nest_z0_z1._collections_by_name[name].images:
             assert img in nest_from_config._collections_by_name[name].images
 
