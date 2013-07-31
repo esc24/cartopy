@@ -95,6 +95,9 @@ class Projection(CRS, metaclass=ABCMeta):
     def __ne__(self, other):
         return not self == other
 
+    def __hash__(self):
+        return hash(self.proj4_init)
+
     @abstractproperty
     def boundary(self):
         pass
