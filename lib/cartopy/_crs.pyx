@@ -80,7 +80,6 @@ cdef class CRS:
             self.proj4_params['ellps'] = 'WGS84'
         init_items = ['+{}={}'.format(k, v) for
                       k, v in self.proj4_params.iteritems()]
-        import pdb;pdb.set_trace()
         self.proj4_init = bytes(' '.join(sorted(init_items)), 'ascii')
         self.proj4 = pj_init_plus(self.proj4_init)
         if not self.proj4:
